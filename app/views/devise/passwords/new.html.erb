@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h2>Забыли свой пароль?</h2>
+</div>
+
+<div class="row">
+  <div class="col-md-6 buffer-top">
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Отправить мне на почту новый пароль", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+
+    <p class="buffer-top">
+      <%= render "devise/shared/links" %>
+    </p>
+
+  </div>
+</div>
