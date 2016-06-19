@@ -5,9 +5,14 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # и делать миниатюрные версии
   include CarrierWave::RMagick
 
-  # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
+  # Если мы работаем в локальной версии нашего приложения,
+  # фотографии хранятся прямо в файловой системе, иначе используем fog
+  # для загрузки их на Amazon S3
+  if Rails.env.production?
+    storage :fog
+  else
+    storage :file
+  end
 
   # Папка, в которой будут храниться все наши загруженные файлы
   # например, uploas/photo/photo/1
