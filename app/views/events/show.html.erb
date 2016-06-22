@@ -26,6 +26,8 @@
           <% if current_user_can_edit?(@event) %>
             <div class="buffer-top">
               <%= link_to 'Изменить', edit_event_path(@event), class: 'btn btn-primary' %>
+              <%= link_to 'Удалить', event_path, method: :delete,
+                          data: {confirm: t('.destroy_event')}, class: 'btn btn-danger' %>
             </div>
           <% end %>
         </div>

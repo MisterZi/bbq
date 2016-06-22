@@ -66,6 +66,10 @@ ru:
     subscription:
       destroy_confirm: 'Вы уверены, что хотите удалить эту подписку?'
 
+  events:
+    show:
+      destroy_event: "Вы уверены, что хотите удалить событие?"
+
   event_mailer:
     comment:
       title: 'Новый комментарий'

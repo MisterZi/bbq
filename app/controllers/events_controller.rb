@@ -1,7 +1,7 @@
 # Контроллер, управляющий событиями
 class EventsController < ApplicationController
   # встроенный в девайз фильтр - посылает незалогиненного пользователя
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!, except: [:show, :index, :destroy]
 
   # задаем объект @event для экшена show
   before_action :set_event, only: [:show]
