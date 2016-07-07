@@ -74,7 +74,7 @@ class EventsController < ApplicationController
     end
 
     if cookies.permanent["events_#{@event.id}_pincode"] != @event.pincode
-      flash.no[:alert] = 'Wrong pincode' if params[:pincode].present?
+      flash.now[:alert] = 'Wrong pincode' if params[:pincode].present?
       render 'pincode_form'
     end
   end

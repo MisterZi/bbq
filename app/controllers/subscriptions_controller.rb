@@ -6,12 +6,18 @@ class SubscriptionsController < ApplicationController
   # задаем подписку, которую юзер хочет удалить
   before_action :set_subscription, only: [:destroy]
 
+  before_action :check_for_creator, only: [:create]
+
 
   # POST /subscriptions
   def create
     # болванка для новой подписки
     @new_subscription = @event.subscriptions.build(subscription_params)
     @new_subscription.user = current_user
+
+    # if current_user == @event.user
+    #   redirect_to @event
+    # end
 
     if @new_subscription.save
       # Отправляем письмо автору события
@@ -49,5 +55,11 @@ class SubscriptionsController < ApplicationController
   def subscription_params
     # .fetch разрешает в params отсутствие ключа :subscription
     params.fetch(:subscription, {}).permit(:user_email, :user_name)
+  end
+
+  def check_for_creator
+    if current_user == @event.user
+      redirect_to @event, alert: I18n.t('controllers.subscription.creator_error')
+    end
   end
 end
