@@ -6,6 +6,7 @@ class SubscriptionsController < ApplicationController
   # задаем подписку, которую юзер хочет удалить
   before_action :set_subscription, only: [:destroy]
 
+  # проверяем на хозяина подписки
   before_action :check_for_creator, only: [:create]
 
 
@@ -14,10 +15,6 @@ class SubscriptionsController < ApplicationController
     # болванка для новой подписки
     @new_subscription = @event.subscriptions.build(subscription_params)
     @new_subscription.user = current_user
-
-    # if current_user == @event.user
-    #   redirect_to @event
-    # end
 
     if @new_subscription.save
       # Отправляем письмо автору события

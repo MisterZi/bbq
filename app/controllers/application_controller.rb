@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   # хелпер метод, доступный во вьюхах
   helper_method :current_user_can_edit?
+  helper_method :current_user_can_subscribe?
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:account_update) { |u|
@@ -21,6 +22,11 @@ class ApplicationController < ActionController::Base
         (model.user == current_user || # если у модели есть юзер и он залогиненный
             # пробуем у модели взять .event и если он есть, проверяем его юзера
             (model.try(:event).present? && model.event.user == current_user))
+  end
+
+  # показывает, может ли текущий залогиненый юзер подписываться на событие
+  def current_user_can_subscribe?(event)
+    !current_user_can_edit?(event)
   end
 
 end
