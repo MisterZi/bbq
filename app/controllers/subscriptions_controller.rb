@@ -9,6 +9,9 @@ class SubscriptionsController < ApplicationController
   # проверяем на хозяина подписки
   before_action :check_for_creator, only: [:create]
 
+  # проверяем на хозяина email
+   before_action :check_for_email, only: [:create]
+
 
   # POST /subscriptions
   def create
@@ -18,7 +21,7 @@ class SubscriptionsController < ApplicationController
 
     if @new_subscription.save
       # Отправляем письмо автору события
-      EventMailer.subscription(@event, @new_subscription).deliver_now
+      # EventMailer.subscription(@event, @new_subscription).deliver_now
       # если сохранилась успешно, редирект на страницу самого события
       redirect_to @event, notice: I18n.t('controllers.subscription.created')
     else
@@ -57,6 +60,12 @@ class SubscriptionsController < ApplicationController
   def check_for_creator
     if current_user == @event.user
       redirect_to @event, alert: I18n.t('controllers.subscription.creator_error')
+    end
+  end
+
+  def check_for_email
+    if !current_user.present? && !User.find_by_email(params[:user_email]).nil?
+      redirect_to @event, alert: 'Этот email уже занят!'
     end
   end
 end
