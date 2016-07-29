@@ -50,8 +50,8 @@ class CommentsController < ApplicationController
     # собираем всех подписчиков и автора события в массив мэйлов, исключаем повторяющиеся
     all_emails = (event.subscriptions.map(&:user_email) + [event.user.email]).uniq
 
-    if comment.user.email.present?
-      all_emails -= comment.user.email
+    if comment.user.present?
+      # all_emails -= comment.user.email
     end
 
     all_emails.each do |mail|
