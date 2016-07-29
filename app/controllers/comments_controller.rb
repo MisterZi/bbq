@@ -48,7 +48,11 @@ class CommentsController < ApplicationController
 
   def notify_subscribers(event, comment)
     # собираем всех подписчиков и автора события в массив мэйлов, исключаем повторяющиеся
-    all_emails = (event.subscriptions.map(&:user_email) + [event.user.email]).uniq.delete(comment.user.email)
+    all_emails = (event.subscriptions.map(&:user_email) + [event.user.email]).uniq
+
+    if comment.user.present?
+      all_emails.delete(comment.user.email)
+    end
 
     all_emails.each do |mail|
       EventMailer.comment(event, comment, mail).deliver_now
