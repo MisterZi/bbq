@@ -1,28 +1,15 @@
-== README
+== Шашлыки
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Организатор событий на rails 4.2. Позволят создавать события и работать с ними (подписываться, комментировать, заливать фотографии и многое другое)
 
-Things you may want to cover:
+Рассчитано на работу с Heroku.
 
-* Ruby version
+== Демо
 
-* System dependencies
+https://goodevents.herokuapp.com
 
-* Configuration
+== Установка
 
-* Database creation
+Для разворачивания своей копии клонируйте гит репозиторий (зеленая кнопочка в правом верхнем углу на гитхабе), залейте на свое приложение на Heroku (или создайте новое <tt>heroku create</tt>). Также поправьте урл сайта в <tt>production.rb</tt>.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Для работы почты на хероку должен быть подключен SendGrid.
