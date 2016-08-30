@@ -21,7 +21,7 @@ class SubscriptionsController < ApplicationController
 
     if @new_subscription.save
       # Отправляем письмо автору события
-      EventMailer.subscription(@event, @new_subscription).deliver_now
+      # EventMailer.subscription(@event, @new_subscription).deliver_now
       # если сохранилась успешно, редирект на страницу самого события
       redirect_to @event, notice: I18n.t('controllers.subscription.created')
     else
@@ -64,7 +64,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def check_for_email
-    if !current_user.present? && !User.find_by_email(subscription_params[:user_email]).nil?
+    if current_user.blank? && User.find_by_email(subscription_params[:user_email]).present?
       redirect_to @event, alert: 'Этот email уже занят!'
     end
   end
